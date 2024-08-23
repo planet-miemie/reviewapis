@@ -21,6 +21,8 @@ service Review {
 	// C端获取评价详情 todo
 	rpc GetReview (GetReviewRequest) returns (GetReviewReply);
 	// O端审核评价 todo
+	rpc AuditReview (AuditReviewRequest) returns (AuditReviewReply);
+
 
 	// B端回复评价
 	rpc ReplyReview(ReplyReviewRequest)returns (ReplyReviewReply){
@@ -51,6 +53,21 @@ message CreateReviewRequest {
 //创建评价的回复
 message CreateReviewReply {
 	int64 reviewID = 1;
+}
+
+// 审核评价的请求
+message AuditReviewRequest {
+	int64 reviewID = 1 [(validate.rules).int64 = {gt: 0}];
+	int32 status = 2 [(validate.rules).int32 = {gt: 0}];
+	string opUser = 3 [(validate.rules).string = {min_len: 2}];
+	string opReason = 4 [(validate.rules).string = {min_len: 2}];
+	optional string opRemarks = 5;
+}
+
+// 审核评价的返回值
+message AuditReviewReply {
+	int64 reviewID = 1;
+	int32 status = 2;
 }
 
 // 回复评价的请求
