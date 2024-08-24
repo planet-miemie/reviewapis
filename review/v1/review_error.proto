@@ -16,6 +16,9 @@ enum ErrorReason {
   // 为某个枚举单独设置错误码
   NEED_LOGIN = 0 [(errors.code) = 401];
   DB_FAILED = 1 [(errors.code) = 500];
+  //无效的的参数
+  INVALID_PARAM=2[(errors.code)=400];
 
   ORDER_REVIEWED = 100 [(errors.code) = 400];
+
 }

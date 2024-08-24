@@ -36,9 +36,9 @@ const (
 type ReviewClient interface {
 	// C端创建评价
 	CreateReview(ctx context.Context, in *CreateReviewRequest, opts ...grpc.CallOption) (*CreateReviewReply, error)
-	// C端获取评价详情 todo
+	// C端获取评价详情
 	GetReview(ctx context.Context, in *GetReviewRequest, opts ...grpc.CallOption) (*GetReviewReply, error)
-	// O端审核评价 todo
+	// O端审核评价
 	AuditReview(ctx context.Context, in *AuditReviewRequest, opts ...grpc.CallOption) (*AuditReviewReply, error)
 	// B端回复评价
 	ReplyReview(ctx context.Context, in *ReplyReviewRequest, opts ...grpc.CallOption) (*ReplyReviewReply, error)
@@ -133,9 +133,9 @@ func (c *reviewClient) ListReview(ctx context.Context, in *ListReviewRequest, op
 type ReviewServer interface {
 	// C端创建评价
 	CreateReview(context.Context, *CreateReviewRequest) (*CreateReviewReply, error)
-	// C端获取评价详情 todo
+	// C端获取评价详情
 	GetReview(context.Context, *GetReviewRequest) (*GetReviewReply, error)
-	// O端审核评价 todo
+	// O端审核评价
 	AuditReview(context.Context, *AuditReviewRequest) (*AuditReviewReply, error)
 	// B端回复评价
 	ReplyReview(context.Context, *ReplyReviewRequest) (*ReplyReviewReply, error)

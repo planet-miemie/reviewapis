@@ -18,10 +18,19 @@ service Review {
 			body: "*"
 		};
 	};
-	// C端获取评价详情 todo
-	rpc GetReview (GetReviewRequest) returns (GetReviewReply);
-	// O端审核评价 todo
-	rpc AuditReview (AuditReviewRequest) returns (AuditReviewReply);
+	// C端获取评价详情
+	rpc GetReview (GetReviewRequest) returns (GetReviewReply){
+		option(google.api.http)={
+			get: "/v1/review/{reviewID}",
+		};
+	};
+	// O端审核评价
+	rpc AuditReview (AuditReviewRequest) returns (AuditReviewReply){
+		option(google.api.http)={
+			post: "/v1/review/audit",
+			body: "*"
+		};
+	};
 
 
 	// B端回复评价
@@ -53,6 +62,30 @@ message CreateReviewRequest {
 //创建评价的回复
 message CreateReviewReply {
 	int64 reviewID = 1;
+}
+
+// 获取评价详情的请求参数
+message GetReviewRequest {
+	int64 reviewID = 1 [(validate.rules).int64 = {gt: 0}];
+}
+
+// 获取评价详情的响应
+message GetReviewReply {
+	ReviewInfo data = 1;
+}
+
+// 评价信息
+message ReviewInfo{
+	int64 reviewID = 1;
+	int64 userID = 2;
+	int64 orderID = 3;
+	int32 score = 4;
+	int32 serviceScore = 5;
+	int32 expressScore = 6;
+	string content = 7;
+	string picInfo = 8;
+	string videoInfo = 9;
+	int32 status = 10;
 }
 
 // 审核评价的请求
@@ -90,9 +123,6 @@ message UpdateReviewReply {}
 
 message DeleteReviewRequest {}
 message DeleteReviewReply {}
-
-message GetReviewRequest {}
-message GetReviewReply {}
 
 message ListReviewRequest {}
 message ListReviewReply {}

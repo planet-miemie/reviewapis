@@ -37,6 +37,20 @@ func ErrorDbFailed(format string, args ...interface{}) *errors.Error {
 	return errors.New(500, ErrorReason_DB_FAILED.String(), fmt.Sprintf(format, args...))
 }
 
+// 无效的的参数
+func IsInvalidParam(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_INVALID_PARAM.String() && e.Code == 400
+}
+
+// 无效的的参数
+func ErrorInvalidParam(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_INVALID_PARAM.String(), fmt.Sprintf(format, args...))
+}
+
 func IsOrderReviewed(err error) bool {
 	if err == nil {
 		return false
